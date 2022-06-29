@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}  Главная страница  {% endblock title %}
+
+{% block content %}
+
+    <form action="{% url 'get_visit_day' %}" method="POST">
+        {% csrf_token %}
+        <input type="date" name="day" id="day" placeholder="Дата МОЕГО ПОСЕЩЕНИЯ" required>
+        <button>Проверить</button>
+    </form>
+
+<h2> {{ day }} </h2>
+
+<table>
+    <thead>
+    <th>Имя</th>
+    <th>Дата</th>
+    <th>Посетил(а)</th>
+    <th>Время прихода</th>
+    <th>Время  ухода</th>
+    <th>Причина</th>
+    </thead>
+
+    <tbody>
+        {% for visit in visits %}
+        <tr>
+            <td>{{ visit.employer }}</td>
+            <td>{{ visit.date }}</td>
+            {% if visit.visited == True %}
+            <td>Посетил(а)</td>
+            {% else %}
+            <td>Отсутствовал(а)</td>
+            {% endif %}
+            <td>{{visit.time_start}}</td>
+            <td>{{visit.time_end}}</td>
+            <td>{{visit.reason}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}  Главная страница  {% endblock title %}
+
+{% block content %}
+
+<h4>Сотрудник</h4>
+<h4>Фото</h4>
+{% if  employee.image %}
+<img src="{{ employee.image.url }}" height="250"/><hr>
+{% else %}
+<img src="https://ru.hostings.info/upload/images/2021/12/e11044b915dc39afc3004430606bd6d1.jpg" height="300"/><hr>
+{% endif %}
+<h4>{{employee.name}}</h4><hr>
+<h4>{{employee.position.title}}</h4></hr>
+
+<h4>{{ employee.email }}</h4><hr>
+<h4>{{ employee.phone }}</h4><hr>
+<h4>{{ employee.stack }}</h4><hr>
+<table>
+    <thead>
+    <th>Дата</th>
+    <th>Посетил(а)</th>
+    <th>Время прихода</th>
+    <th>Время  ухода</th>
+    <th>Причина</th>
+    </thead>
+
+    <tbody>
+        {% for visit in visits %}
+        <tr>
+            <td>{{ visit.data }}</td>
+            {% if visit.visited == True %}
+            <td>Посетил(а)</td>
+            {% else %}
+            <td>Отсутствовал(а)</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+{% endblock %}
